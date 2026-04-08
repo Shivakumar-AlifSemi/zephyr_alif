@@ -19,7 +19,7 @@
 #include <zephyr/logging/log.h>
 LOG_MODULE_REGISTER(CPI, CONFIG_VIDEO_LOG_LEVEL);
 
-#define WORKQ_STACK_SIZE 512
+#define WORKQ_STACK_SIZE 4096
 #define WORKQ_PRIORITY   7
 K_KERNEL_STACK_DEFINE(alif_isr_cb_workq, WORKQ_STACK_SIZE);
 
@@ -255,6 +255,8 @@ static int32_t fourcc_to_csi_data_type(uint32_t fourcc)
 		return CSI2_DT_RAW14;
 	case VIDEO_PIX_FMT_Y16:
 		return CSI2_DT_RAW16;
+	case VIDEO_PIX_FMT_RGB565:
+		return CSI2_DT_RGB565;
 	}
 	return -ENOTSUP;
 }
